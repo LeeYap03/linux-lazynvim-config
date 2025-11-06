@@ -19,13 +19,14 @@ Because the configuration is ~~messy~~modular, remaps are split across multiple 
 * **Plugin-Specific Remaps:** [plugin_remaps.lua](lua/lee/core/plugin_remaps.lua)
 * **LSP-Specific Remaps:** [lsp_remaps.lua](lua/lee/core/lsp_remaps.lua)
 
-### 🅱️ Font Used
+#### 🅱️ Font Used
 - I use the [Cousine Nerd Font](https://www.nerdfonts.com/font-downloads) for proper rendering of icons and symbols.
 
  ---
-# 🔌 Plugin List
+ 
+## 🔌 Plugin List
 
-## ⚙️ Plugin Manager
+### ⚙️ Plugin Manager
 | Plugin | Config File |
 | :--- | :--- |
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | [lazy.lua](lua/lee/lazy.lua) |
