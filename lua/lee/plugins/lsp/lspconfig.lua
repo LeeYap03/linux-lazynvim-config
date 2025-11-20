@@ -14,6 +14,7 @@ return {
 
 		vim.diagnostic.config({
 			linehl = true,
+			virtual_text = true,
 			signs = {
 				active = true,
 				text = {
@@ -44,6 +45,18 @@ return {
 					},
 					completion = {
 						callSnippet = "Replace",
+					},
+				},
+			},
+		})
+		vim.lsp.config("basedpyright", {
+			capabilities = capabilities,
+			filetypes = { "python" },
+			settings = {
+				basedpyright = {
+					analysis = {
+						typeCheckingMode = "basic",
+						diagnosticMode = "workspace",
 					},
 				},
 			},

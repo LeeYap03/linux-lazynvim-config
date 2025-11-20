@@ -25,6 +25,7 @@ return {
 				"html",
 				"emmet_ls",
 				"cssls",
+				"css_variables",
 				"tailwindcss",
 				"lua_ls",
 				"basedpyright",
