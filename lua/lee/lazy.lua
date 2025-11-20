@@ -21,6 +21,7 @@ require("lazy").setup({
 		-- import plugins
 		{ import = "lee.plugins" },
 		{ import = "lee.plugins.lsp" },
+		{ import = "lee.plugins.colorschemes" },
 	},
 
 	checker = {
