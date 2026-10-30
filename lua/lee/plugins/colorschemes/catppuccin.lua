@@ -23,7 +23,7 @@ return {
 				scope_color = "pink",
 				colored_indent_levels = true,
 			},
-			cmp = true,
+			blink_cmp = true,
 			mason = true,
 			noice = true,
 		},

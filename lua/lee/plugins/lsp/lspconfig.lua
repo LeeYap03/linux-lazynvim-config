@@ -2,26 +2,33 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {},
+		},
 	},
 	config = function()
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local lsp_remaps = require("lee.core.lsp_remaps")
 
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		vim.diagnostic.config({
-			linehl = true,
 			virtual_text = true,
 			signs = {
-				active = true,
 				text = {
 					[vim.diagnostic.severity.ERROR] = "",
 					[vim.diagnostic.severity.WARN] = "",
 					[vim.diagnostic.severity.HINT] = "󰠠",
 					[vim.diagnostic.severity.INFO] = "",
+				},
+				linehl = {
+					[vim.diagnostic.severity.ERROR] = "DiagnosticVirtualTextError",
+					[vim.diagnostic.severity.WARN] = "DiagnosticVirtualTextWarn",
+					[vim.diagnostic.severity.HINT] = "DiagnosticVirtualTextHint",
+					[vim.diagnostic.severity.INFO] = "DiagnosticVirtualTextInfo",
 				},
 			},
 			float = {
@@ -40,9 +47,6 @@ return {
 			capabilities = capabilities,
 			settings = {
 				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
 					completion = {
 						callSnippet = "Replace",
 					},

@@ -1,14 +1,17 @@
+-- Built-in `gc` commenting; this only makes commentstring context-aware (tsx, html, etc.)
 return {
-	"numToStr/Comment.nvim",
-	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"JoosepAlviste/nvim-ts-context-commentstring",
-	},
+	"JoosepAlviste/nvim-ts-context-commentstring",
+	event = { "BufReadPost", "BufNewFile" },
+	init = function()
+		vim.g.skip_ts_context_commentstring_module = true
+	end,
 	config = function()
-		local comment = require("Comment")
-		local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
-		comment.setup({
-			pre_hook = ts_context_commentstring.create_pre_hook(),
-		})
+		require("ts_context_commentstring").setup({ enable_autocmd = false })
+
+		local get_option = vim.filetype.get_option
+		vim.filetype.get_option = function(filetype, option)
+			return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
+				or get_option(filetype, option)
+		end
 	end,
 }

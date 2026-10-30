@@ -5,6 +5,7 @@ return {
 
 		auto_session.setup({
 			auto_restore_enabled = false,
+			session_lens = { load_on_setup = false },
 			auto_session_suppress_dirs = { "~/", "~/Projects/", "~/Downloads", "~/Documents", "~/Desktop/" },
 		})
 	end,

@@ -1,57 +1,30 @@
 return {
-	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
-	dependencies = {
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		{
-			"L3MON4D3/LuaSnip",
-			version = "v2.*",
-			build = "make install_jsregexp",
+	"saghen/blink.cmp",
+	version = "1.*",
+	event = { "InsertEnter", "CmdlineEnter" },
+	dependencies = { "rafamadriz/friendly-snippets" },
+	opts = {
+		keymap = {
+			preset = "none",
+			["<C-k>"] = { "select_prev", "fallback" },
+			["<C-j>"] = { "select_next", "fallback" },
+			["<C-b>"] = { "scroll_documentation_up", "fallback" },
+			["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
+			["<Tab>"] = { "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "fallback" },
 		},
-		"saadparwaiz1/cmp_luasnip",
-		"rafamadriz/friendly-snippets",
-		"onsails/lspkind.nvim", -- VS-Code like pictograms
+		completion = {
+			list = { selection = { preselect = false, auto_insert = false } },
+			documentation = { auto_show = true },
+			menu = { draw = { treesitter = { "lsp" } } },
+		},
+		sources = {
+			default = { "lsp", "snippets", "buffer", "path" },
+		},
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
-	config = function()
-		local cmp = require("cmp")
-		local luasnip = require("luasnip")
-		local lspkind = require("lspkind")
-
-		require("luasnip.loaders.from_vscode").lazy_load()
-
-		cmp.setup({
-			completion = {
-				completeopt = "menu,menuone,preview,noselect",
-			},
-			snippet = {
-				expand = function(args)
-					luasnip.lsp_expand(args.body)
-				end,
-			},
-			mapping = cmp.mapping.preset.insert({
-				["<C-k>"] = cmp.mapping.select_prev_item(), -- Previous suggestion
-				["<C-j>"] = cmp.mapping.select_next_item(), -- Next suggestion
-				["<C-b>"] = cmp.mapping.scroll_docs(-4),
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete(), -- Show completion suggestions
-				["<C-e>"] = cmp.mapping.abort(), -- Close completion window
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
-			}),
-			-- Sources for autocompletion
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-				{ name = "path" },
-			}),
-
-			formatting = {
-				format = lspkind.cmp_format({
-					maxwidth = 50,
-					ellipsis_char = "...",
-				}),
-			},
-		})
-	end,
+	opts_extend = { "sources.default" },
 }

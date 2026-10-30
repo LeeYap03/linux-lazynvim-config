@@ -24,7 +24,7 @@ opt.smartcase = true
 vim.opt.termguicolors = true
 
 -- General options
-opt.scrolloff = 20
+opt.scrolloff = 4
 opt.cursorline = true
 opt.showmode = false
 
@@ -35,3 +35,10 @@ vim.o.undofile = true
 vim.opt.listchars:append("eol:")
 vim.opt.listchars:append("tab:│ ")
 vim.opt.list = true
+
+-- Responsiveness and window behaviour
+opt.updatetime = 250
+opt.splitright = true
+opt.splitbelow = true
+opt.clipboard = "unnamedplus"
+opt.undolevels = 10000

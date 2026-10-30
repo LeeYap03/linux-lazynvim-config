@@ -31,12 +31,16 @@ Keymap("n", "<leader>5", function()
 end, { desc = "harpoon to file 5" })
 
 -- Telescope Keymaps
-local telescope = require("telescope.builtin")
-Keymap("n", "<leader>ff", telescope.find_files, { desc = "Telescope find files" })
-Keymap("n", "<leader>fg", telescope.live_grep, { desc = "Telescope grep" })
-Keymap("n", "<leader>fb", telescope.buffers, { desc = "Telescope buffers" })
-Keymap("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
-Keymap("n", "<leader>fr", telescope.oldfiles, { desc = "Telescope find recent files" })
+local function telescope(picker)
+	return function()
+		require("telescope.builtin")[picker]()
+	end
+end
+Keymap("n", "<leader>ff", telescope("find_files"), { desc = "Telescope find files" })
+Keymap("n", "<leader>fg", telescope("live_grep"), { desc = "Telescope grep" })
+Keymap("n", "<leader>fb", telescope("buffers"), { desc = "Telescope buffers" })
+Keymap("n", "<leader>fh", telescope("help_tags"), { desc = "Telescope help tags" })
+Keymap("n", "<leader>fr", telescope("oldfiles"), { desc = "Telescope find recent files" })
 Keymap("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Telescope find todos" })
 
 -- Trouble Keymaps
@@ -52,30 +56,25 @@ Keymap("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>", { desc = "Open trou
 Keymap("n", "<leader>xt", "<cmd>Trouble todo toggle<CR>", { desc = "Open todos in trouble" })
 
 -- Formatting and Linting Keymaps
-local conform = require("conform")
-local lint = require("lint")
-
 Keymap({ "n", "v" }, "<leader>mp", function()
-	conform.format({
-		lsp_fallback = true,
+	require("conform").format({
+		lsp_format = "fallback",
 		async = false,
 		timeout_ms = 1000,
 	})
 end, { desc = "Format file or range (in visual mode)" })
 
 Keymap("n", "<leader>lt", function()
-	lint.try_lint()
+	require("lint").try_lint()
 end, { desc = "Trigger linting for current file" })
 
 -- Todo-Comments Keymaps
-local todo_comments = require("todo-comments")
-
 Keymap("n", "]t", function()
-	todo_comments.jump_next()
+	require("todo-comments").jump_next()
 end, { desc = "Next todo comment" })
 
 Keymap("n", "[t", function()
-	todo_comments.jump_prev()
+	require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
 
 -- Sessions Keymaps
