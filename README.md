@@ -15,7 +15,7 @@ This repository contains my personal Neovim configuration, managed by the **lazy
   - Uses the `main` branch of nvim-treesitter, which compiles parsers with the `tree-sitter` CLI (installed through Mason).
   - [See here for available tree-sitter parsers](https://github.com/tree-sitter/tree-sitter/wiki/List-of-parsers).
 
-#### ⌨️ Note on Keybindings and Remaps
+#### Note on Keybindings and Remaps
 
 Because the configuration is ~~messy~~modular, remaps are split across multiple files. Note that some remaps are also defined directly within the plugin specification files when needed.
 
