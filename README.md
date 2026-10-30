@@ -1,4 +1,4 @@
-# My Neovim Linux Configuration 🐧🚀
+# My Neovim Linux Configuration
 
 This repository contains my personal Neovim configuration, managed by the **lazy.nvim** plugin manager.
 
@@ -11,7 +11,8 @@ This repository contains my personal Neovim configuration, managed by the **lazy
   - Check the `ensure_installed` lines in [mason.lua](lua/lee/plugins/lsp/mason.lua) to see which Language Servers, Linters, and Formatters are installed.
   - Run `:Mason` in Neovim to see available tools.
 - **Language Parsers (Tree-sitter):**
-  - Check the `ensure_installed` lines in [treesitter.lua](lua/lee/plugins/treesitter.lua) for the language parsers that are active.
+  - Check the `ts.install({...})` list in [treesitter.lua](lua/lee/plugins/treesitter.lua) for the language parsers that are active.
+  - Uses the `main` branch of nvim-treesitter, which compiles parsers with the `tree-sitter` CLI (installed through Mason).
   - [See here for available tree-sitter parsers](https://github.com/tree-sitter/tree-sitter/wiki/List-of-parsers).
 
 #### ⌨️ Note on Keybindings and Remaps
@@ -22,21 +23,17 @@ Because the configuration is ~~messy~~modular, remaps are split across multiple 
 - **Plugin-Specific Remaps:** [plugin_remaps.lua](lua/lee/core/plugin_remaps.lua)
 - **LSP-Specific Remaps:** [lsp_remaps.lua](lua/lee/core/lsp_remaps.lua)
 
-#### 🅱️ Font Used
-
-- I use the [Cousine Nerd Font](https://www.nerdfonts.com/font-downloads) for proper rendering of icons and symbols.
-
   ***
 
-## 🔌 Plugin List
+## Plugin List
 
-### ⚙️ Plugin Manager
+### Plugin Manager
 
 | Plugin                                          | Config File                  |
 | :---------------------------------------------- | :--------------------------- |
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | [lazy.lua](lua/lee/lazy.lua) |
 
-### 🎨 Aesthetics & UI
+### Aesthetics & UI
 
 | Plugin                                                                          | Description                                                           | Config File                                                   |
 | :------------------------------------------------------------------------------ | :-------------------------------------------------------------------- | :------------------------------------------------------------ |
@@ -49,28 +46,29 @@ Because the configuration is ~~messy~~modular, remaps are split across multiple 
 | [noice.nvim](https://github.com/folke/noice.nvim)                               | Replaces the built-in command line and pop-ups with a more modern UI. | [noice.lua](lua/lee/plugins/noice.lua)                        |
 | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Visually displays indentation guides.                                 | [indentblankline.lua](lua/lee/plugins/indentblankline.lua)    |
 | [ray-x/colorizer.lua](https://github.com/norcalli/nvim-colorizer.lua)           | Highlights color codes (like hex and RGB) in the buffer.              | [colorizer.lua](lua/lee/plugins/colorizer.lua)                |
+| [themery.nvim](https://github.com/zaldih/themery.nvim)                          | Switch between installed colorschemes from inside Neovim.             | [themery.lua](lua/lee/plugins/themery.lua)                    |
 
-### 🛠️ Core Editing & Language Support
+### Core Editing & Language Support
 
-| Plugin                                                                | Description                                                | Config File                                      |
-| :-------------------------------------------------------------------- | :--------------------------------------------------------- | :----------------------------------------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Provides syntax highlighting and structural navigation.    | [treesitter.lua](lua/lee/plugins/treesitter.lua) |
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)            | Automatically inserts and closes parentheses, quotes, etc. | [autopairs.lua](lua/lee/plugins/autopairs.lua)   |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim)              | Smart commenting for any filetype.                         | [comment.lua](lua/lee/plugins/comment.lua)       |
-| [nvim-surround](https://github.com/kylechui/nvim-surround)            | Adds/deletes/replaces surrounding characters.              | [surround.lua](lua/lee/plugins/surround.lua)     |
-| [which-key.nvim](https://github.com/folke/which-key.nvim)             | Pop-up that shows key-bindings on-the-fly.                 | [whichkey.lua](lua/lee/plugins/whichkey.lua)     |
+| Plugin                                                                                          | Description                                                                       | Config File                                      |
+| :---------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------- |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                           | Provides syntax highlighting and structural navigation.                           | [treesitter.lua](lua/lee/plugins/treesitter.lua) |
+| [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | Context-aware comment strings (tsx, html, etc.) for the built-in `gc` commenting. | [comment.lua](lua/lee/plugins/comment.lua)       |
+| [nvim-surround](https://github.com/kylechui/nvim-surround)                                      | Adds/deletes/replaces surrounding characters.                                     | [surround.lua](lua/lee/plugins/surround.lua)     |
+| [which-key.nvim](https://github.com/folke/which-key.nvim)                                       | Pop-up that shows key-bindings on-the-fly.                                        | [whichkey.lua](lua/lee/plugins/whichkey.lua)     |
 
-### 💡 LSP, Completion, & Formatting
+### LSP, Completion, & Formatting
 
-| Plugin                                                     | Description                                                  | Config File                                        |
-| :--------------------------------------------------------- | :----------------------------------------------------------- | :------------------------------------------------- |
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Configurations for Neovim's built-in LSP client.             | [lspconfig.lua](lua/lee/plugins/lsp/lspconfig.lua) |
-| [mason.nvim](https://github.com/williamboman/mason.nvim)   | Installer and manager for LSPs, formatters, and linters.     | [mason.lua](lua/lee/plugins/lsp/mason.lua)         |
-| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)            | A powerful and lightweight completion engine.                | [cmp.lua](lua/lee/plugins/cmp.lua)                 |
-| [conform.nvim](https://github.com/stevearc/conform.nvim)   | Formatter support using external tools managed by Mason.     | [formatting.lua](lua/lee/plugins/formatting.lua)   |
-| [nvim-lint](https://github.com/mfussenegger/nvim-lint)     | Asynchronous linter plugin for integrating external linters. | [linting.lua](lua/lee/plugins/linting.lua)         |
+| Plugin                                                     | Description                                                                 | Config File                                        |
+| :--------------------------------------------------------- | :-------------------------------------------------------------------------- | :------------------------------------------------- |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Configurations for Neovim's built-in LSP client.                            | [lspconfig.lua](lua/lee/plugins/lsp/lspconfig.lua) |
+| [lazydev.nvim](https://github.com/folke/lazydev.nvim)      | Lua LSP setup for Neovim API completion and types.                          | [lspconfig.lua](lua/lee/plugins/lsp/lspconfig.lua) |
+| [mason.nvim](https://github.com/mason-org/mason.nvim)      | Installer and manager for LSPs, formatters, and linters.                    | [mason.lua](lua/lee/plugins/lsp/mason.lua)         |
+| [blink.cmp](https://github.com/saghen/blink.cmp)           | Fast completion engine with built-in LSP, snippet, buffer and path sources. | [cmp.lua](lua/lee/plugins/cmp.lua)                 |
+| [conform.nvim](https://github.com/stevearc/conform.nvim)   | Formatter support using external tools managed by Mason.                    | [formatting.lua](lua/lee/plugins/formatting.lua)   |
+| [nvim-lint](https://github.com/mfussenegger/nvim-lint)     | Asynchronous linter plugin for integrating external linters.                | [linting.lua](lua/lee/plugins/linting.lua)         |
 
-### 🔍 Search & Workflow
+### Search & Workflow
 
 | Plugin                                                             | Description                                                       | Config File                                        |
 | :----------------------------------------------------------------- | :---------------------------------------------------------------- | :------------------------------------------------- |
@@ -81,7 +79,7 @@ Because the configuration is ~~messy~~modular, remaps are split across multiple 
 | [auto-session](https://github.com/rmagatti/auto-session)           | Automatic session saving and restoring.                           | [sessions.lua](lua/lee/plugins/sessions.lua)       |
 | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)  | Highlights and lists TODO, FIX, HACK, etc., comments.             | [todocomment.lua](lua/lee/plugins/todocomment.lua) |
 
-### 🐙 Git Integration
+### Git Integration
 
 | Plugin                                                      | Description                                            | Config File                                  |
 | :---------------------------------------------------------- | :----------------------------------------------------- | :------------------------------------------- |
